@@ -1,0 +1,319 @@
+
+
+
+
+
+# Docker run
+
+docker run -d --name centos-4 -it centos /bin/bash
+
+docker container exec -it centos-4 bash 
+docker container run --name centos-1 -d -it centos bash
+docker container create --hostname centos-1 -it centos  bash
+
+# delete all the running container using one command
+docker rm -f $(docker ps -a -q)
+
+===:===:===: docker image command
+
+harshil@devopslab:~$ sudo docker image
+
+Usage:	docker image COMMAND
+
+Manage images
+
+Commands:
+  build       Build an image from a Dockerfile
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Display detailed information on one or more images
+  load        Load an image from a tar archive or STDIN
+  ls          List images
+  prune       Remove unused images
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rm          Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+
+Run 'docker image COMMAND --help' for more information on a command.
+
+
+===: pull image
+
+harshil@devopslab:~$ sudo docker image pull httpd
+Using default tag: latest
+latest: Pulling from library/httpd
+Digest: sha256:387f896f9b6867c7fa543f7d1a686b0ebe777ed13f6f11efc8b94bec743a1e51
+Status: Image is up to date for httpd:latest
+docker.io/library/httpd:latest
+
+harshil@devopslab:~$ sudo docker image pull ubuntu:16.04
+16.04: Pulling from library/ubuntu
+b5e173e44934: Pull complete 
+29047100b040: Pull complete 
+15743a713c2a: Pull complete 
+4b6bc9e29877: Pull complete 
+Digest: sha256:961d69a9344d5315cd83b722f2dc34a72bc9dc4a7258fdd703c3b5d64b450f87
+Status: Downloaded newer image for ubuntu:16.04
+docker.io/library/ubuntu:16.04
+
+
+harshil@devopslab:~$ sudo docker pull centos:7.7.1908
+7.7.1908: Pulling from library/centos
+f34b00c7da20: Pull complete 
+Digest: sha256:50752af5182c6cd5518e3e91d48f7ff0cba93d5d760a67ac140e2d63c4dd9efc
+Status: Downloaded newer image for centos:7.7.1908
+docker.io/library/centos:7.7.1908
+
+
+===: inspect image
+
+harshil@devopslab:~$ sudo docker inspect httpd
+[
+    {
+        "Id": "sha256:ccbcea8a67570043de0d0932f9d750e7d311415def699c60aa69e4cea4a25a7e",
+        "RepoTags": [
+            "httpd:latest"
+        ],
+        "RepoDigests": [
+            "httpd@sha256:387f896f9b6867c7fa543f7d1a686b0ebe777ed13f6f11efc8b94bec743a1e51"
+        ],
+        "Parent": "",
+        "Comment": "",
+        "Created": "2020-06-09T07:02:39.015676355Z",
+        "Container": "5a2cdd409f60415f776d9f63b87ea36f7dc6da11f36ec6ad1cb4ebdf3942f4bd",
+        "ContainerConfig": {
+            "Hostname": "5a2cdd409f60",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/apache2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "HTTPD_PREFIX=/usr/local/apache2",
+                "HTTPD_VERSION=2.4.43",
+                "HTTPD_SHA256=a497652ab3fc81318cdc2a203090a999150d86461acff97c1065dc910fe10f43",
+                "HTTPD_PATCHES="
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "#(nop) ",
+                "CMD [\"httpd-foreground\"]"
+            ],
+            "ArgsEscaped": true,
+            "Image": "sha256:5e3f193ccbbde66aa4d53cd6768267e3cb322cd0102fa27a73f95e5e870184f7",
+            "Volumes": null,
+            "WorkingDir": "/usr/local/apache2",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {},
+            "StopSignal": "SIGWINCH"
+        },
+        "DockerVersion": "18.09.7",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/apache2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "HTTPD_PREFIX=/usr/local/apache2",
+                "HTTPD_VERSION=2.4.43",
+                "HTTPD_SHA256=a497652ab3fc81318cdc2a203090a999150d86461acff97c1065dc910fe10f43",
+                "HTTPD_PATCHES="
+            ],
+            "Cmd": [
+                "httpd-foreground"
+            ],
+            "ArgsEscaped": true,
+            "Image": "sha256:5e3f193ccbbde66aa4d53cd6768267e3cb322cd0102fa27a73f95e5e870184f7",
+            "Volumes": null,
+            "WorkingDir": "/usr/local/apache2",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": null,
+            "StopSignal": "SIGWINCH"
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 165525058,
+        "VirtualSize": 165525058,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/e8131b4ebd17d6b22b4115b760ea4d1e37946e591697ab6653c73959932c0e75/diff:/var/lib/docker/overlay2/1ed3940d27c19f633c4a976878fb21d2c617105b629bc1c7293c7a051effa584/diff:/var/lib/docker/overlay2/722504b9c9a6be8765446f2695761302509f22f9a5e9e9c10b3759c153305762/diff:/var/lib/docker/overlay2/82f11a140b6ad09ee6445fffc7aac178ebcd7e5a51d37dc5bc263a27e8251e84/diff",
+                "MergedDir": "/var/lib/docker/overlay2/0fd6ef4609fc6c0b1d8c025ab6ae8cabf68391e98762a61a9c2d15157854d916/merged",
+                "UpperDir": "/var/lib/docker/overlay2/0fd6ef4609fc6c0b1d8c025ab6ae8cabf68391e98762a61a9c2d15157854d916/diff",
+                "WorkDir": "/var/lib/docker/overlay2/0fd6ef4609fc6c0b1d8c025ab6ae8cabf68391e98762a61a9c2d15157854d916/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:13cb14c2acd34e45446a50af25cb05095a17624678dbafbcc9e26086547c1d74",
+                "sha256:ca9ad7f0ab91ef3bf39d59a8b5862efc214e0d687d880443b32bd8ea9a3f4a78",
+                "sha256:484fa8d4774fc7f63e37d0cf5c605e518d4788279695706f23e4a2368be0bca6",
+                "sha256:4cfc2b1d3e9066ff9d1dc3feece7e1b6b108de85c437cb4f6ad5266d3c01d8dd",
+                "sha256:5d727ac943913f3bef39e7b8a5379da95f80193c2206efa3a7a6684692f80034"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "0001-01-01T00:00:00Z"
+        }
+    }
+]
+
+===: list image
+
+harshil@devopslab:~$ sudo docker image ls
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              16.04               330ae480cb85        3 days ago          125MB
+httpd               latest              ccbcea8a6757        11 days ago         166MB
+
+
+===: delete the image
+
+harshil@devopslab:~$ sudo docker image rm httpd
+Untagged: httpd:latest
+Untagged: httpd@sha256:387f896f9b6867c7fa543f7d1a686b0ebe777ed13f6f11efc8b94bec743a1e51
+Deleted: sha256:ccbcea8a67570043de0d0932f9d750e7d311415def699c60aa69e4cea4a25a7e
+Deleted: sha256:5c4c89625ff8665fe91bbb9d38dfd34288ff08f8ccde099bf677ad495d69c417
+Deleted: sha256:512298cd5152562a264e3b040dd3cd6be5da67186678ea81c91650a3b6b0c11d
+Deleted: sha256:d88f1580cb0d35258fb3597ce8c13db8d5de0789b4bf88bd73c16915385c3659
+Deleted: sha256:454b81a8c15213d5016efae8dc925e89e21cbdb817f05d492a1a5f4cbe06b150
+Deleted: sha256:13cb14c2acd34e45446a50af25cb05095a17624678dbafbcc9e26086547c1d74
+
+===: delete unused image 
+
+harshil@devopslab:~$ sudo docker image prune 
+WARNING! This will remove all dangling images.
+Are you sure you want to continue? [y/N] y
+Total reclaimed space: 0B
+
+===: check the histroy of the image
+
+harshil@devopslab:~$ sudo docker image history ubuntu:16.04
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+330ae480cb85        3 days ago          /bin/sh -c #(nop)  CMD ["/bin/bash"]            0B                  
+<missing>           3 days ago          /bin/sh -c mkdir -p /run/systemd && echo 'do…   7B                  
+<missing>           3 days ago          /bin/sh -c set -xe   && echo '#!/bin/sh' > /…   745B                
+<missing>           3 days ago          /bin/sh -c rm -rf /var/lib/apt/lists/*          0B                  
+<missing>           3 days ago          /bin/sh -c #(nop) ADD file:52af30f80ba214985…   125MB               
+
+
+===: login in docker hub on cli
+
+harshil@devopslab:~$ sudo docker login --username=docker-hub-username
+Password: 
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+
+===: push the image to docker hub
+
+harshil@devopslab:~$ sudo docker push harshiljethava/centos
+The push refers to repository [docker.io/harshiljethava/centos]
+eb29745b8228: Mounted from library/centos 
+latest: digest: sha256:fd84102fc72960dd1b8da0ee3b4c13e3b0c1d2a085de118bc4c97821cd986e02 size: 529
+
+
+harshil@devopslab:~$ sudo docker push harshiljethava/httpd
+The push refers to repository [docker.io/harshiljethava/httpd]
+5d727ac94391: Mounted from library/httpd 
+4cfc2b1d3e90: Mounted from library/httpd 
+484fa8d4774f: Mounted from library/httpd 
+ca9ad7f0ab91: Mounted from library/httpd 
+13cb14c2acd3: Mounted from library/httpd 
+latest: digest: sha256:ad116b4faf32a576572c1501e3c83ecae52ed3ba161de2f50a89d24b796bd3eb size: 1367
+
+===: tag the docker image
+
+harshil@devopslab:~$ sudo docker tag centos:7.7.1908 harshiljethava/centos:7.7.1908
+
+harshil@devopslab:~$ sudo docker tag centos harshiljethava/centos
+
+
+===:===:===: docker container command
+
+===: create the docker container 
+
+harshil@devopslab:~$ sudo docker container create  --name centos1 centos -it /bin/bash 
+Unable to find image 'centos:latest' locally
+latest: Pulling from library/centos
+6910e5a164f7: Pull complete 
+Digest: sha256:4062bbdd1bb0801b0aa38e0f83dece70fb7a5e9bce223423a68de2d8b784b43b
+Status: Downloaded newer image for centos:latest
+8bb7447601af4ce2f5801048cb7a59e17983e1622d251ad8d6dc7c75df12f2af
+
+harshil@devopslab:~$ sudo docker container create  --name centos2 harshiljethava/centos -it /bin/bash 
+Unable to find image 'harshiljethava/centos:latest' locally
+latest: Pulling from harshiljethava/centos
+Digest: sha256:fd84102fc72960dd1b8da0ee3b4c13e3b0c1d2a085de118bc4c97821cd986e02
+Status: Downloaded newer image for harshiljethava/centos:latest
+421dd8e643c25a374e8d7c1c5c888a8fe14f8e6af5bc1b6c448f4274e19b6961
+
+
+harshil@devopslab:~$ sudo docker container create  --name centos3 harshiljethava/centos:7.7.1908 -it /bin/bash 
+b95cec2bbbd9788b7da31e0ad3daf3abdce006f86ac5515b76f77419067a0e51
+
+harshil@devopslab:~$ sudo docker create --name web1 httpd --it /bin/bash -p 9000:80
+Unable to find image 'httpd:latest' locally
+latest: Pulling from library/httpd
+8559a31e96f4: Pull complete 
+bd517d441028: Pull complete 
+f67007e59c3c: Pull complete 
+83c578481926: Pull complete 
+f3cbcb88690d: Pull complete 
+Digest: sha256:387f896f9b6867c7fa543f7d1a686b0ebe777ed13f6f11efc8b94bec743a1e51
+Status: Downloaded newer image for httpd:latest
+b0612e7d1afad2a49889a09558355045947fa5e2870b41962d45479cc1610e37
+
+
+===: list the container in docker
+
+harshil@devopslab:~$ sudo docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
+
+harshil@devopslab:~$ sudo docker ps -a
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS              PORTS               NAMES
+b95cec2bbbd9        harshiljethava/centos:7.7.1908   "-it /bin/bash"     14 seconds ago      Created                                 centos3
+421dd8e643c2        harshiljethava/centos            "-it /bin/bash"     55 seconds ago      Created                                 centos2
+8bb7447601af        centos                           "-it /bin/bash"     3 minutes ago       Created                                 centos1
+
+
+===:===: create & start the container in interactive mode
+
+harshil@devopslab:~$ sudo docker image ls
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+ubuntu                  latest              74435f89ab78        3 days ago          73.9MB
+harshiljethava/centos   latest              831691599b88        3 days ago          215MB
+centos                  latest              831691599b88        3 days ago          215MB
+httpd                   latest              ccbcea8a6757        11 days ago         166MB
+fedora                  latest              adfbfa4a115a        5 weeks ago         192MB
+harshiljethava/centos   7.7.1908            08d05d1d5859        7 months ago        204MB
+centos                  7.7.1908            08d05d1d5859        7 months ago        204MB
+harshil@devopslab:~$ sudo docker create -it --name lab1 harshiljethava/centos sh
+c13a3011460eedec48648884ef5a06369e76f340c0b184983735cc37533ce0e4
+harshil@devopslab:~$ sudo docker start -i lab1
+sh-4.4# 
